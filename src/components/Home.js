@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	View,
 	ScrollView,
@@ -6,13 +6,90 @@ import {
 	Image,
 	TouchableOpacity,
 	Text,
-	TextInput
+	TextInput,
+	FlatList
 } from 'react-native';
-import { COLOURS } from '../database/item';
+import { Categories, COLOURS } from '../database/item';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Home = () => {
+	const [currentSelected, setCurrentSelected] = useState(0);
+
+	const RenderCategories = ({ index, item }) => {
+		return (
+			<TouchableOpacity
+				activeOpacity={0.9}
+				onPress={() => setCurrentSelected(index)}
+			>
+				<View
+					style={{
+						width: 120,
+						height: 180,
+						justifyContent: 'space-evenly',
+						alignItems: 'center',
+						backgroundColor:
+							currentSelected == index ? COLOURS.accentPink : COLOURS.white,
+						borderRadius: 20,
+						margin: 10,
+						elevation: 5
+					}}
+				>
+					<View style={{ width: 60, height: 60 }}>
+						<Image
+							source={item.image}
+							style={{
+								width: '100%',
+								height: '100%',
+								resizeMode: 'center'
+							}}
+						/>
+					</View>
+					<Text
+						style={{
+							fontSize: 16,
+							fontWeight: '600',
+							color: COLOURS.black,
+						}}
+					>
+						{item.name}
+					</Text>
+					<View
+						style={{
+							width: 30,
+							height: 30,
+							borderRadius: 100,
+							backgroundColor:
+								currentSelected == index ? COLOURS.white : COLOURS.accentRed,
+							justifyContent: 'center',
+							alignItems: 'center',
+						}}
+					>
+						<FontAwesome
+							name='angle-right'
+							style={{
+								fontSize: 12,
+								color: currentSelected == index ? COLOURS.black : COLOURS.white,
+							}}
+						/>
+					</View>
+				</View>
+			</TouchableOpacity>
+		);
+	};
+
+	const RenderItems = (data, idx) => {
+		return (
+			<TouchableOpacity>
+				<View>
+					<Text>{data.name}</Text>
+				</View>
+			</TouchableOpacity>
+		)
+	};
+
+
 	return (
 		<View
 			style={{
@@ -123,6 +200,36 @@ const Home = () => {
 							}}
 						/>
 					</View>
+					<Text
+						style={{
+							paddingTop: 20,
+							paddingHorizontal: 20,
+							fontSize: 18,
+							fontWeight: '700',
+							color: COLOURS.black,
+							letterSpacing: 1,
+						}}
+					>
+						Categories
+					</Text>
+					<FlatList
+						horizontal={true}
+						data={Categories}
+						renderItem={RenderCategories}
+						showsHorizontalScrollIndicator={false}
+					/>
+					<Text
+						style={{
+							fontSize: 18,
+							fontWeight: '700',
+							paddingTop: 20,
+							paddingHorizontal: 20,
+							color: COLOURS.black,
+						}}
+					>
+						Popular
+					</Text>
+					{Categories[currentSelected].items.map(RenderItems)}
 				</View>
 			</ScrollView>
 		</View>
