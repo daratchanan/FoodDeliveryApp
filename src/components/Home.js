@@ -17,7 +17,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
-const Home = () => {
+const Home = ({ navigation }) => {
 	const [currentSelected, setCurrentSelected] = useState(0);
 
 	const RenderCategories = ({ index, item }) => {
@@ -86,12 +86,25 @@ const Home = () => {
 		return (
 			<TouchableOpacity
 				key={idx}
+				activeOpacity={0.9}
 				style={{
 					width: '100%',
 					height: 180,
 					justifyContent: 'center',
 					alignItems: 'center',
 				}}
+				onPress={() => navigation.push('details', data)}
+				// onPress={() => navigation.push('details', {
+				// 	name:data.name,
+				// 	price: data.price,
+				// 	image: data.image,
+				// 	size: data.size,
+				// 	crust: data.crust,
+				// 	delivery: data.delivery,
+				// 	ingredients: data.ingredients,
+				// 	isTopOfTheWeek: data.isTopOfTheWeek,
+				// 	navigation: navigation
+				// })}
 			>
 				<View
 					style={{
@@ -211,11 +224,11 @@ const Home = () => {
 								}}
 							/>
 							<Text
-							style={{
-								fontSize: 15,
-								fontWeight: 'bold',
-								color: COLOURS.black,
-							}}
+								style={{
+									fontSize: 15,
+									fontWeight: 'bold',
+									color: COLOURS.black,
+								}}
 							>
 								{data.rating}
 							</Text>
@@ -367,6 +380,24 @@ const Home = () => {
 						Popular
 					</Text>
 					{Categories[currentSelected].items.map(RenderItems)}
+					<TouchableOpacity
+						style={{
+							margin: 30,
+							justifyContent: 'center',
+							alignItems: 'center',
+							opacity: 0.5,
+						}}>
+						<Text
+							style={{
+								fontSize: 16,
+								color: COLOURS.black,
+								borderBottomColor: COLOURS.black,
+								borderBottomWidth: 1,
+							}}
+						>
+							Load more
+						</Text>
+					</TouchableOpacity>
 				</View>
 			</ScrollView>
 		</View>
