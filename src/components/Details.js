@@ -2,10 +2,13 @@ import React from 'react';
 import {
 	View,
 	Text,
-	TouchableOpacity
+	TouchableOpacity,
+	Image,
+	ScrollView
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
 import { COLOURS } from '../database/item';
 
 const Details = ({ route, navigation }) => {
@@ -104,14 +107,167 @@ const Details = ({ route, navigation }) => {
 					฿
 				</Text>
 				<Text
-				style={{
-					fontSize: 38,
-					fontWeight: '900',
-					color: COLOURS.accentRed,
-				}}
+					style={{
+						fontSize: 38,
+						fontWeight: '900',
+						color: COLOURS.accentRed,
+					}}
 				>
 					{price}
 				</Text>
+			</View>
+			<View
+				style={{
+					width: '100%',
+					flexDirection: 'row',
+					alignItems: 'center',
+					maxHeight: 300,
+				}}
+			>
+				<View style={{ paddingHorizontal: 20 }}>
+					<View style={{ paddingVertical: 20 }}>
+						<Text
+							style={{
+								fontSize: 12,
+								color: COLOURS.black,
+								opacity: 0.5
+							}}
+						>
+							Size
+						</Text>
+						<Text
+							style={{
+								fontSize: 18,
+								color: COLOURS.black,
+								fontWeight: '600'
+							}}
+						>
+							{size}
+						</Text>
+					</View>
+					<View style={{ paddingVertical: 20 }}>
+						<Text
+							style={{
+								fontSize: 12,
+								color: COLOURS.black,
+								opacity: 0.5
+							}}
+						>
+							Crust
+						</Text>
+						<Text
+							style={{
+								fontSize: 18,
+								color: COLOURS.black,
+								fontWeight: '600'
+							}}
+						>
+							{crust}
+						</Text>
+					</View>
+					<View style={{ paddingVertical: 20 }}>
+						<Text
+							style={{
+								fontSize: 12,
+								color: COLOURS.black,
+								opacity: 0.5
+							}}
+						>
+							Delivery
+						</Text>
+						<Text
+							style={{
+								fontSize: 18,
+								color: COLOURS.black,
+								fontWeight: '600'
+							}}
+						>
+							{delivery}
+						</Text>
+					</View>
+				</View>
+
+				<View style={{ width: 380, height: 380 }}>
+					<Image
+						source={image}
+						style={{
+							width: '100%',
+							height: '100%',
+							resizeMode: 'contain'
+						}}
+					/>
+				</View>
+			</View>
+			<Text
+				style={{
+					paddingTop: 20,
+					paddingHorizontal: 20,
+					fontSize: 20,
+					fontWeight: '700',
+					color: COLOURS.black,
+				}}>
+				Ingredients
+			</Text>
+			<ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+				{ingredients.map((data, idx) => {
+					return (
+						<View
+							key={idx}
+							style={{
+								width: 80,
+								height: 80,
+								backgroundColor: COLOURS.white,
+								borderRadius: 20,
+								margin: 12,
+								elevation: 5
+							}}
+						>
+							<Image
+								source={data}
+								style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+							/>
+						</View>
+					);
+				})}
+			</ScrollView>
+			<View
+				style={{
+					position: 'absolute',
+					width: '100%',
+					bottom: 0,
+					justifyContent: 'center',
+					alignItems: 'center'
+				}}
+			>
+				<TouchableOpacity
+					onPress={() => navigation.goBack()}
+					style={{
+						width: '90%',
+						height: 80,
+						backgroundColor: COLOURS.accent,
+						borderTopLeftRadius: 20,
+						borderTopRightRadius: 20,
+						flexDirection: 'row',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<Text
+						style={{
+							fontSize: 16,
+							fontWeight: 'bold',
+							color: COLOURS.black,
+							letterSpacing: 1,
+							marginRight: 10,
+						}}
+					>
+						Place on Order
+					</Text>
+					<Entypo
+						name='chevron-right'
+						style={{ fontSize: 16, color: COLOURS.black }}
+					/>
+				</TouchableOpacity>
 			</View>
 		</View>
 	)
